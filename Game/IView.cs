@@ -9,11 +9,10 @@ namespace Game
     {
         public string PlayerInput {get; set;}
 
-        public IView()
-        {
+        public void ShowMainMenu();
 
-        }
+        public string WaitingForInput();
 
-        public void MainMenu()
+        public void ShowBoard();
     }
 }
