@@ -6,9 +6,9 @@ namespace Game
         public int      Y{get; set;}
         public bool     CheatDice{get; set;}
         public bool     ExtraDice{get; set;}
-        public char     Icon{get;}
+        public string   Icon{get;}
 
-        public Player(char icon)
+        public Player(string icon)
         {
             Icon = icon;
             X = 0;
@@ -17,9 +17,7 @@ namespace Game
             ExtraDice = false;
         }
 
-        public override string ToString()
-        {
-            return Icon.ToString();
-        }
+        public override string ToString()=> Icon;
+
     }
 }
