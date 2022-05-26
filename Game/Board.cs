@@ -1,18 +1,15 @@
-using System.CodeDom.Compiler;
-using System.Globalization;
-using System.Reflection;
-using System.Security;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Game
 {
     public class Board
     {
         private Tile[,] map;
+        private Player [] players;
 
-        public Board()
+        public Board( Player player1, Player player2)
         {
-            map = GenerateMap(); 
+            map = GenerateMap();
+            players = new Player[]{player1, player2};
         }
 
         private Tile[,] GenerateMap()
@@ -33,7 +30,7 @@ namespace Game
 
         public void Move(int[] direction, Player player)
         {
-            if(direction.Length > 1)
+            if(direction.Length > 1 && (direction[0] != 0 || direction[1] != 0))
             {
                 if(direction[0] != 0)
                 {
@@ -48,14 +45,12 @@ namespace Game
                     player.X = playerArr[0];
                     player.Y = playerArr[1];
                 }
+
+                //check overlap
+
+                map[player.X, player.Y].Effect(player);
             }
-            
-            //check overlap
-
-            map[player.X, player.Y].Effect(player);
         }
-
-
 
         private int ArrayToBoard(int x, int y) =>
         (x % 2 == 0) ? PosLine(x + 1) + y + 1 : PosLine(x) - y;
