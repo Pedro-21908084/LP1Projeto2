@@ -23,7 +23,7 @@ namespace Game
 
         public string WaitingForInput(string playerInput);
 
-        public void ShowBoard();
+        public void ShowBoard(Board board);
 
         public void ShowPlayerMoves();
     }

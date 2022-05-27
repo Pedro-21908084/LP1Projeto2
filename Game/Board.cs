@@ -3,12 +3,12 @@ namespace Game
 {
     public class Board
     {
-        private Tile[,] map;
+        public Tile[,] Map {get;private set;}
         private Player [] players;
 
         public Board( Player player1, Player player2)
         {
-            map = GenerateMap();
+            Map = GenerateMap();
             players = new Player[]{player1, player2};
         }
 
@@ -48,7 +48,7 @@ namespace Game
 
                 //check overlap
 
-                map[player.X, player.Y].Effect(player);
+                Map[player.X, player.Y].Effect(player);
             }
         }
 

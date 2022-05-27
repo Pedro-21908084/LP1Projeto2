@@ -77,16 +77,20 @@ namespace Game
             return playerInput;
         }
 
-        public void ShowBoard()
+        public void ShowBoard(Board board)
         {
-            string character = "  ";
             Console.WriteLine("______________________________");
             for (int i = 0; i < 5; i++)
             {
                 Console.WriteLine("|    ||    ||    ||    ||    |");
                 for (int j = 0; j < 5; j++)
                 {
-                    Console.Write($"| {character} |");
+                    Console.Write("|");
+                    if(board.Map[i,j].ToString().Length == 1)
+                    {
+                        Console.Write(" ");
+                    }
+                    Console.Write($" {board.Map[i,j]} |");
                 }
                 Console.WriteLine("\n|____||____||____||____||____|");
             }
