@@ -15,6 +15,9 @@ namespace Game
             GenerateMap();
         }
 
+        /// <summary>
+        /// Generates the map for play.
+        /// </summary>
         private void GenerateMap()
         {
             Map = new Tile[5,5];
@@ -37,6 +40,13 @@ namespace Game
             PlaceTile(new UTurn(this), 0, 2, 0, 3);
         }
 
+        /// <summary>
+        /// Moves a player int the right direction.
+        /// </summary>
+        /// <param name="direction">An array with 2 members, the first
+        /// represents the movement in the vertical axis and the second 
+        /// represents movement along the board</param>
+        /// <param name="player">The player tha will be moved.</param>
         public void Move(int[] direction, Player player)
         {
             if(direction.Length > 1 && (direction[0] != 0 || direction[1] != 0))
@@ -75,6 +85,12 @@ namespace Game
             }
         }
 
+        /// <summary>
+        /// Checks if player is on top of another player, moving the other if so.
+        /// It also checks if moving the other will create stackoverflow, if so
+        /// the effect of the tile where the other will go wont activate.
+        /// </summary>
+        /// <param name="player">The player who just moved.</param>
         private void CheckForPlayerOverlap(Player player)
         {
             int enemy = (players[0].Icon == player.Icon)? 1 : 0 ;
@@ -100,6 +116,11 @@ namespace Game
             }
         }
 
+        /// <summary>
+        /// Check if moving the player will create stackoverflow
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
         private bool CheckStackOverFlowPlayers(Player player)
         {
             bool result = false;
@@ -116,11 +137,27 @@ namespace Game
             return result;
         }
 
+        /// <summary>
+        /// Transform a position from an array to a position on the board.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         private int ArrayToBoard(int x, int y) =>
         (x % 2 == 0) ? PosLine(x + 1) + y + 1 : PosLine(x) - y;
 
+        /// <summary>
+        /// Given a x value calculates the max value in that line.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         private int PosLine(int x) => 25 - x * 5;
 
+        /// <summary>
+        /// Transform a position from the board to a position on a array.
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
         public int[] BoardToArray(int pos)
         {
             int[] mat = new int[2];
@@ -140,6 +177,10 @@ namespace Game
             return mat;
         }
 
+        /// <summary>
+        /// Gets a random  from 1 to 6.
+        /// </summary>
+        /// <returns></returns>
         public int ThrowDice()
         {
             // Initialization of a new local instance of the class Random 
@@ -150,6 +191,15 @@ namespace Game
             return diceNumber;
         }
 
+        /// <summary>
+        /// Places a tile "tile" a number of times between min and max, between 
+        /// the minlines and maxlines
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="minLine"></param>
+        /// <param name="maxLine"></param>
         private void PlaceTile
         (Tile tile, int min, int max, int minLine, int maxLine)
         {
@@ -160,6 +210,14 @@ namespace Game
             PlaceTile(tile, quantity, minLine, maxLine);
         }
 
+        /// <summary>
+        /// Places a tile "tile" "quantity" times, between the minlines and 
+        /// maxlines
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="quantity"></param>
+        /// <param name="minLine"></param>
+        /// <param name="maxLine"></param>
         private void PlaceTile(Tile tile, int quantity, int minLine, int maxLine)
         {
             int[] pos;
@@ -172,6 +230,15 @@ namespace Game
             }
         }
 
+        /// <summary>
+        /// Generates a random position for tile between min and max lines, 
+        /// checking if it will cause stackoverflow, if it is in the start or
+        /// fishlines , generating a new position if so.
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
         private int[] GenerateRandomPos(Tile tile, int min, int max)
         {
             Random pos = new Random();
