@@ -134,11 +134,29 @@ namespace Game
                 y = pos.Next(0, 5);
                 //check if position as another special or is starting/finishing
                 // lines
-            } while ((x == 0 && y == 4) || (x == 4 && y == 0) || Map[x, y].IsSpecial);
+            } while ((x == 0 && y == 4) || (x == 4 && y == 0) || 
+                Map[x, y].IsSpecial || CheckForStackOverFlow(tile, x, y));
                 //CheckForStackOverFlow(tile, x, y));
 
             int[] position = { x, y };
             return position;
+        }
+
+        private bool CheckForStackOverFlow(Tile tile, int x, int y)
+        {
+            bool result = false;
+
+            Player testPlayer = new Player("T");
+            testPlayer.X = x;
+            testPlayer.Y = y;
+
+            tile.Effect(testPlayer);
+
+            if(testPlayer.X == x && testPlayer.Y == y && 
+                !testPlayer.CheatDice && !testPlayer.ExtraDice)
+                result = true;
+
+            return result;
         }
     }
 }
