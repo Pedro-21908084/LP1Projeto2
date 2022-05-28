@@ -13,7 +13,7 @@ namespace Game
         //Methods
         public void ShowMainMenu();
         
-        public void ShowInGameDisplay();
+        public void ShowInGameDisplay(Board board, Player player1, Player player2);
 
         public void ShowInGameHelp();
 
@@ -23,7 +23,7 @@ namespace Game
 
         public string WaitingForInput(string playerInput);
 
-        public void ShowBoard(Board board);
+        public void ShowBoard(Board board, Player player1, Player player2);
 
         public void ShowPlayerMoves();
     }

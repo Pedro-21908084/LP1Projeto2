@@ -12,7 +12,7 @@ namespace Game
             Player player2 = new Player("🐍");
             Board model = new Board(player1,player2);
 
-            view.ShowBoard(model);
+            view.ShowBoard(model, player1,player2);
         }
     }
 
