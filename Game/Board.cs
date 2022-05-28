@@ -7,12 +7,7 @@ namespace Game
     {
         public Tile[,] Map {get;private set;}
         public Player [] players;
-<<<<<<< HEAD
-
         public string Turn{get; private set;}
-=======
->>>>>>> Model
-
         public Board( Player player1, Player player2)
         {
             players = new Player[]{player1, player2};
