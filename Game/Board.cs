@@ -1,4 +1,6 @@
 
+using System;
+
 namespace Game
 {
     public class Board
@@ -20,7 +22,8 @@ namespace Game
             {
                 for(int j = 0; j<5;j++)
                 {
-                    temp[i,j] = new Tile(this, ArrayToBoard(i,j));
+                    temp[i,j] = new Tile
+                    (this, ArrayToBoard(i,j).ToString());
                 }
             }
 
@@ -89,6 +92,16 @@ namespace Game
                 }
             }
             return mat;
+        }
+
+        public int ThrowDice()
+        {
+            // Initialization of a new local instance of the class Random 
+            Random dice = new Random();
+            // Number randomly chosen between a min (1) and a max (6/non-inclusive 7)  
+            int diceNumber = dice.Next(1, 7);
+            // returns the value of diceNumber
+            return diceNumber;
         }
     }
 }
