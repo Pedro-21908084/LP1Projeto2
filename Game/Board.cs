@@ -24,6 +24,14 @@ namespace Game
                 }
             }
 
+            temp[0,0] = new Boost();
+            temp[0,1] = new CheatDice();
+            temp[0,2] = new Cobra();
+            temp[1,0] = new ExtraDice();
+            temp[1,1] = new Ladders();
+            temp[1,2] = new Snake();
+            temp[2,0] = new UTurn();
+
             return temp;
             
         }
@@ -44,7 +52,7 @@ namespace Game
                     playerPos += direction[1];
 
                     int[] playerArr = BoardToArray(playerPos);
-                    
+
                     player.X = playerArr[0];
                     player.Y = playerArr[1];
                 }
