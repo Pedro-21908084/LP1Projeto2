@@ -23,7 +23,7 @@ namespace Game
                 for(int j = 0; j<5;j++)
                 {
                     temp[i,j] = new Tile
-                    (this, ArrayToBoard(i,j).ToString());
+                    (this, ArrayToBoard(i,j).ToString(), false);
                 }
             }
 
@@ -102,6 +102,32 @@ namespace Game
             int diceNumber = dice.Next(1, 7);
             // returns the value of diceNumber
             return diceNumber;
+        }
+
+        private void PlaceTile(Tile tile, int quantity)
+        {
+            for(int i = 0; i < quantity; i++)
+            {
+
+            }
+        }
+
+        private int[] GenerateRandomPos(Tile tile)
+        {
+            Random pos = new Random();
+            //generate a random position
+            int x, y;
+            do
+            {
+                x = pos.Next(0, 5);
+                y = pos.Next(0, 5);
+                //check if position as another special or is starting/finishing
+                // lines
+            } while ((x == 0 && y == 4) || (x == 4 && y == 0) );
+                //map[x, y] != tiles.Normal || CheckForStackOverFlow(tile, x, y));
+
+            int[] position = { x, y };
+            return position;
         }
     }
 }

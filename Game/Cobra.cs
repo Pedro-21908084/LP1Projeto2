@@ -2,7 +2,7 @@ namespace Game
 {
     public class Cobra : Tile
     {
-        public Cobra(Board board) : base( board, "Co"){}
+        public Cobra(Board board) : base( board, "Co", true){}
         
         public override void Effect(Player player)
         {
