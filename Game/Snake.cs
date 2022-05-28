@@ -6,7 +6,7 @@ namespace Game
         
         public override void Effect(Player player)
         {
-            board.Move(new int[]{-2,0}, player);
+            board.Move(new int[]{-1,0}, player);
         }
     }
 }
