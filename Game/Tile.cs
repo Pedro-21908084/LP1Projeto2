@@ -4,13 +4,13 @@ namespace Game
 {
     public class Tile
     {
-        private Board board;
+        public Board board;
         private string Icon;
 
-        public Tile(Board board, int indice)
+        public Tile(Board board, string icon)
         {
             this.board = board;
-            Icon = indice.ToString();
+            Icon = icon;
         }
 
         public virtual void Effect(Player player){}
