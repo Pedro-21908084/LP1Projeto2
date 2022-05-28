@@ -10,33 +10,30 @@ namespace Game
 
         public Board( Player player1, Player player2)
         {
-            Map = GenerateMap();
+            GenerateMap();
             players = new Player[]{player1, player2};
         }
 
-        private Tile[,] GenerateMap()
+        private void GenerateMap()
         {
-            Tile[,] temp = new Tile[5,5];
+            Map = new Tile[5,5];
 
             for(int i = 0; i<5; i++)
             {
                 for(int j = 0; j<5;j++)
                 {
-                    temp[i,j] = new Tile
+                    Map[i,j] = new Tile
                     (this, ArrayToBoard(i,j).ToString(), false);
                 }
             }
 
-            temp[0,0] = new Boost(this);
-            temp[0,1] = new CheatDice(this);
-            temp[0,2] = new Cobra(this);
-            temp[1,0] = new ExtraDice(this);
-            temp[1,1] = new Ladders(this);
-            temp[1,2] = new Snake(this);
-            temp[2,0] = new UTurn(this);
-
-            return temp;
-            
+            PlaceTile(new Boost(this), 0, 2, 1, 4);
+            PlaceTile(new CheatDice(this), 1, 0, 4);
+            PlaceTile(new Cobra(this), 1, 0, 2);
+            PlaceTile(new ExtraDice(this), 1, 0, 4);
+            PlaceTile(new Ladders(this), 2, 4, 1, 4);
+            PlaceTile(new Snake(this), 2, 4, 0, 3);
+            PlaceTile(new UTurn(this), 0, 2, 0, 3);
         }
 
         public void Move(int[] direction, Player player)
@@ -104,27 +101,41 @@ namespace Game
             return diceNumber;
         }
 
-        private void PlaceTile(Tile tile, int quantity)
+        private void PlaceTile
+        (Tile tile, int min, int max, int minLine, int maxLine)
         {
+            Random rand = new Random();
+            //generates a random number betwen given min and max values
+            int quantity = rand.Next(min, max + 1);
+            //call SpecialTiles with the value generated
+            PlaceTile(tile, quantity, minLine, maxLine);
+        }
+
+        private void PlaceTile(Tile tile, int quantity, int minLine, int maxLine)
+        {
+            int[] pos;
+
             for(int i = 0; i < quantity; i++)
             {
+                pos = GenerateRandomPos(tile, minLine, maxLine);
 
+                Map[pos[0], pos[1]] = tile;
             }
         }
 
-        private int[] GenerateRandomPos(Tile tile)
+        private int[] GenerateRandomPos(Tile tile, int min, int max)
         {
             Random pos = new Random();
             //generate a random position
             int x, y;
             do
             {
-                x = pos.Next(0, 5);
+                x = pos.Next(min, max+1);
                 y = pos.Next(0, 5);
                 //check if position as another special or is starting/finishing
                 // lines
-            } while ((x == 0 && y == 4) || (x == 4 && y == 0) );
-                //map[x, y] != tiles.Normal || CheckForStackOverFlow(tile, x, y));
+            } while ((x == 0 && y == 4) || (x == 4 && y == 0) || Map[x, y].IsSpecial);
+                //CheckForStackOverFlow(tile, x, y));
 
             int[] position = { x, y };
             return position;
