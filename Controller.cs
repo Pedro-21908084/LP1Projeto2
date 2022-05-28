@@ -7,7 +7,6 @@ namespace
 {
     public class Controller
     {
-        private List<Player> list;
         private IView view;
         private Board board;
 
@@ -21,32 +20,18 @@ namespace
             //Checks if is in the game to help the CheckPlayerInput method see 
             //what commands are available
             bool isInTheGame = true;
-            //Creates a new map instance 
-            Map currentmap = new Map();
-            /* Console.WriteLine($"New Game ----------- Starts New Game");
-            Console.WriteLine($"Help --------------- Shows Possible Command Inputs");
-            Console.WriteLine($"Throw Dice ----------Rolls the dice");
-            Console.WriteLine($"Use Extra Dice ------Uses Extra Dice if it is available");
-            Console.WriteLine($"Bonus Dice Info -----Shows What Each Bonus Dice does when used");
-            Console.WriteLine($"Tile Info -----------Shows the effect of all the types of existing tiles");
-            Console.WriteLine($"Back-----------------Goes Back to Main Menu");
-            Console.WriteLine($"Quit-----------------Exit Game"); */
-            ShowMainMenu();
-            //The turn System from 1 to max lenght of player array
+            ShowInGameDisplay();
+            //The turn System from 1 to max length of player array
             for (int i = 0; i < players.Length; i++)
             {
 
                 int playerTextNumber = i + 1;
                 grid.ShowMap(players);
                 //Shows visually the board map from new instance created above
-
-                /* Console.WriteLine($"It's Player {i + 1} turn");
-                Console.WriteLine($"Do you have Cheat Dice? {players[i].hasCheatDice}");
-                Console.WriteLine($"Do you have Extra Dice? {players[i].hasExtraDice}"); */
                 ShowInGameDisplay();
 
                 //Waits for Player input
-                string playerGameInput = Console.ReadLine();
+                //string playerGameInput = Console.ReadLine();
                 WaitingForInput();
                 //Checks if the player input is equal to one of the commands 
                 //specified in the function and plays out the proper action
@@ -73,26 +58,15 @@ namespace
             /// <summary>
             /// Waits for the player input and checks again what it was
             /// </summary>
-            void WaitingInput()
-            {
-                Console.WriteLine($"Player {playerNumber + 1}, it's still your turn");
-                playerInput = Console.ReadLine();
-                CheckPlayerInput(playerInput, playerNumber, isInGame);
-            }
-
-            void WaitingMenuInput()
-            {
-                Console.WriteLine("What Next?");
-                playerInput = Console.ReadLine();
-                CheckPlayerInput(playerInput, playerNumber, isInGame);
-            }
             //If is inside the TurnSystemLoop Checks these commands
             if (isInGame == true)
             {
                 switch (playerInput)
                 {
+
                     case "New Game":
-                        Console.WriteLine("New Game Generated...");
+                    //TODO New game case in view
+                        //Console.WriteLine("New Game Generated...");
                         grid = new Map();
                         players[0] = new Player(4, 0, false, false);
                         players[1] = new Player(4, 0, false, false);
@@ -100,24 +74,14 @@ namespace
                         break;
 
                     case "Help":
-                        /* Console.WriteLine($"New Game ----------- Starts New Game");
-                        Console.WriteLine($"Help --------------- Shows " +
-                            "Possible Command Inputs");
-                        Console.WriteLine($"Throw Dice ----------Rolls the dice");
-                        Console.WriteLine($"Use Extra Dice-------Uses the " +
-                            "extra dice in case of having one");
-                        Console.WriteLine($"Bonus Dice info------Shows the " +
-                            "effects of using the Bonus Dices");
-                        Console.WriteLine($"Tile Info -----------Shows the " +
-                            "effect of all the types of existing tiles");
-                        Console.WriteLine($"Quit-----------------Exit To Main Menu"); */
                         ShowInGameHelp();
                         WaitingForInput();
                         break;
 
                     case "Throw Dice":
-                        int diceNumberGiven = ThrowDice();
-                        Console.WriteLine($"Dice Rolled: {diceNumberGiven}");
+                    //TODO Throw dice /Cheat dice case in view
+                        int diceNumberGiven = Board.ThrowDice();
+                        //Console.WriteLine($"Dice Rolled: {diceNumberGiven}");
                         if (players[playerNumber].hasCheatDice == true)
                             CheatDiceQuestion(playerNumber, diceNumberGiven);
                         else
@@ -126,11 +90,12 @@ namespace
                         break;
 
                     case "Use Extra Dice":
+                    //TODO Extra dice case in view
                         if (players[playerNumber].hasExtraDice == true)
                         {
                             int extraDiceNumber = ThrowDice() + ThrowDice();
-                            Console.WriteLine($"The sum of the 2 Dice was: {extraDiceNumber}");
-                            players[playerNumber] = NextMove(playerNumber, extraDiceNumber);
+                            //Console.WriteLine($"The sum of the 2 Dice was: {extraDiceNumber}");
+                            players[playerNumber] = Board.Move(new int[] {0, extraDiceNumber}, Player player);
                             players[playerNumber].hasExtraDice = false;
                         }
                         else
@@ -141,58 +106,11 @@ namespace
                         break;
 
                     case "Bonus Dice Info":
-                        /* Console.WriteLine("Using an Extra dice will roll 2 " + 
-                            "dices at the same time and add both numbers");
-                        Console.WriteLine("---------------------------------" +
-                            "-----------------------------------------------");
-                        Console.WriteLine("Using an Cheat dice will grant the" +
-                            " player the ability to choose a number and move " +
-                            "a number of tiles according to that selected number");
-                        Console.WriteLine("---------------------------------" +
-                            "-----------------------------------------------"); */
                         ShowBonusDiceInfo();
                         WaitingForInput();
                         break;
 
                     case "Tile Info":
-                        /* Console.WriteLine($"Normal Tiles do not affect the " + 
-                            "player position. They are represented by numbers");
-                        Console.WriteLine("---------------------------------" +
-                            "-----------------------------------------------");
-                        Console.WriteLine($"Snake Tiles make the player go " + 
-                            "vertically down 1 tile. They are represented by " +
-                            " this symbol: 🐍 ");
-                        Console.WriteLine("---------------------------------" +
-                            "-----------------------------------------------");
-                        Console.WriteLine($"Ladder Tiles make the player go " +
-                            "vertically up 1 tile. They are represented by " +
-                            "numbers by this symbol:冃 ");
-                        Console.WriteLine("---------------------------------" +
-                            "-----------------------------------------------");
-                        Console.WriteLine($"Cobra Tiles make the player go " +
-                            "back to the first spot of the board. They are " +
-                            "represented by this symbol: 🟥 ");
-                        Console.WriteLine("---------------------------------" +
-                            "-----------------------------------------------");
-                        Console.WriteLine($"Boost Tiles make the player go " +
-                            "forward 2 tiles. They are represented by this " +
-                            "symbol: 🚀 ");
-                        Console.WriteLine("---------------------------------" +
-                            "-----------------------------------------------");
-                        Console.WriteLine($"U-turn Tiles make the player go " +
-                            "back 2 tiles. They are represented by this symbol: ↺ ");
-                        Console.WriteLine("---------------------------------" +
-                            "-----------------------------------------------");
-                        Console.WriteLine($"Extra Die Tiles grant the player" +
-                            " an extra dice(If the player already has 1 " + 
-                            "extra dice no more will be granted). They are " +
-                            "represented by this symbol: ➕");
-                        Console.WriteLine("---------------------------------" +
-                            "-----------------------------------------------");
-                        Console.WriteLine($"Cheat Die Tiles grant the player" +
-                            " the option to choose a number and move a number" +
-                            " of tiles using that number. They are " + 
-                            "represented by this symbol: 🎲"); */
                         ShowTileInfo();
                         WaitingForInput();
                         break;
@@ -221,7 +139,7 @@ namespace
                         break;
 
                     case "Help":
-                        MainMenu();
+                        ShowInGameHelp();
                         WaitingMenuInput();
                         break;
 
@@ -230,7 +148,8 @@ namespace
                         break;
 
                     default:
-                        Console.WriteLine("Invalid Input");
+                    //TODO case for invalid input
+                        //Console.WriteLine("Invalid Input");
                         WaitingMenuInput();
                         break;
                 }
