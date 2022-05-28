@@ -42,7 +42,6 @@ namespace Game
             Console.WriteLine($"8------------------------------------------------------Save Game");
             Console.WriteLine($"0------------------------------------------------------Exit Game");
             Console.WriteLine("");
-            Console.WriteLine("-----------------------------------------------------------------");
             WaitingForInput(PlayerInput);
         }
         
@@ -57,7 +56,6 @@ namespace Game
             Console.WriteLine($"7-----------------------------------------Goes Back to Main Menu");
             Console.WriteLine($"8------------------------------------------------------Save Game");
             Console.WriteLine($"0------------------------------------------------------Exit Game");
-            Console.WriteLine("-----------------------------------------------------------------");
             WaitingForInput(PlayerInput);
         }
 
@@ -115,12 +113,12 @@ namespace Game
             " the option to choose a number and move a number" +
             " of tiles using that number. They are " + 
             "represented by this symbol: 🎲");
-            Console.WriteLine("-----------------------------------------------------------------");
             WaitingForInput(PlayerInput);
         }
 
         public string WaitingForInput(string playerInput)
         {
+            Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine("What do you want to do?");
             playerInput = Console.ReadLine();
             return playerInput;
@@ -167,6 +165,8 @@ namespace Game
         {
 
         }
+
+        
 
     }
 }

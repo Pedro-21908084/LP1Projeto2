@@ -26,5 +26,18 @@ namespace Game
         public void ShowBoard(Board board, Player player1, Player player2);
 
         public void ShowPlayerMoves();
+
+        public void ShowDiceRoll(Board board);
+
+        public void ShowExtraDiceResult(Board board);
+
+        public void ShowExtraDiceError(Board board);
+
+        public void AskCheatDiceQuestion();
+
+        public void CheatDiceResponse();
+
+        public void ErrorMessage();
+
     }
 }

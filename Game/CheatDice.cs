@@ -2,7 +2,7 @@ namespace Game
 {
     public class CheatDice : Tile
     {
-        public CheatDice(Board board) : base( board, "Ch"){}
+        public CheatDice(Board board) : base( board, "🎲"){}
         
         public override void Effect(Player player)
         {
