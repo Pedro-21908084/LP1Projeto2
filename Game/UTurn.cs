@@ -2,7 +2,7 @@ namespace Game
 {
     public class UTurn : Tile
     {
-        public UTurn(Board board) : base( board, "UT", true){}
+        public UTurn(Board board) : base( board, "↺", true){}
         
         public override void Effect(Player player)
         {

@@ -2,7 +2,7 @@ namespace Game
 {
     public class Boost : Tile
     {
-        public Boost(Board board) : base( board, "Bo", true){}
+        public Boost(Board board) : base( board, "🚀", true){}
         
         public override void Effect(Player player)
         {

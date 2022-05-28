@@ -21,10 +21,27 @@ namespace Game
 
         public void ShowTileInfo();
 
-        public string WaitingForInput(string playerInput);
+        public void WaitingForInput();
 
         public void ShowBoard(Board board, Player player1, Player player2);
 
-        public void ShowPlayerMoves();
+        public void ShowPlayerMoves(Board board);
+
+        public void ShowDiceRoll(int diceRollNumber);
+
+        public void ShowExtraDiceResult(int sumOfDicesRoll);
+
+        public void ShowExtraDiceError();
+
+        public void AskCheatDiceQuestion();
+
+        public int AskCheatDiceRoll();
+
+        public void ShowOutOfBoundsMessage(int numberOfTilesOver25);
+
+        public void ShowWinMessage(int playerNumber);
+
+        public void ErrorMessage();
+
     }
 }

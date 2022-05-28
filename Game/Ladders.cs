@@ -2,7 +2,7 @@ namespace Game
 {
     public class Ladders : Tile
     {
-        public Ladders(Board board) : base( board, "La", true){}
+        public Ladders(Board board) : base( board, "冃", true){}
         
         public override void Effect(Player player)
         {
