@@ -34,17 +34,24 @@ namespace Game
             {
                 if(direction[0] != 0)
                 {
-                    player.Y += direction[0];
+                    player.X -= direction[0];
                 }
 
                 if(direction[1] != 0)
                 {
                     int playerPos = ArrayToBoard(player.X, player.Y);
+
                     playerPos += direction[1];
+
                     int[] playerArr = BoardToArray(playerPos);
+                    
                     player.X = playerArr[0];
                     player.Y = playerArr[1];
                 }
+                
+                //check for out of bounds
+                player.X = (player.X > 4)? 4: (player.X < 0)? 0: player.X;
+                player.Y = (player.Y > 4)? 4: (player.Y < 0)? 0: player.Y;
 
                 //check overlap
 
