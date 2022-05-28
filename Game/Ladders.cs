@@ -2,12 +2,7 @@ namespace Game
 {
     public class Ladders : Tile
     {
-        public Ladders(Board board)
-        {
-            this.board = board;
-
-            Icon = "La";
-        }
+        public Ladders(Board board) : base( board, "La"){}
         
         public override void Effect(Player player)
         {

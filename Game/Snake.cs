@@ -2,12 +2,7 @@ namespace Game
 {
     public class Snake : Tile
     {
-        public Snake(Board board)
-        {
-            this.board = board;
-
-            Icon = "Sn";
-        }
+        public Snake(Board board) : base( board, "Sn"){}
         
         public override void Effect(Player player)
         {

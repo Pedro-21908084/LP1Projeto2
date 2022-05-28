@@ -24,13 +24,13 @@ namespace Game
                 }
             }
 
-            temp[0,0] = new Boost();
-            temp[0,1] = new CheatDice();
-            temp[0,2] = new Cobra();
-            temp[1,0] = new ExtraDice();
-            temp[1,1] = new Ladders();
-            temp[1,2] = new Snake();
-            temp[2,0] = new UTurn();
+            temp[0,0] = new Boost(this);
+            temp[0,1] = new CheatDice(this);
+            temp[0,2] = new Cobra(this);
+            temp[1,0] = new ExtraDice(this);
+            temp[1,1] = new Ladders(this);
+            temp[1,2] = new Snake(this);
+            temp[2,0] = new UTurn(this);
 
             return temp;
             
