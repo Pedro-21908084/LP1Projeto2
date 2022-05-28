@@ -5,7 +5,7 @@ namespace Game
     public class Tile
     {
         public Board board;
-        private string icon;
+        public string Icon{get;private set;}
         public bool IsSpecial{get; private set;}
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace Game
         public Tile(Board board, string icon, bool isSpecial)
         {
             this.board = board;
-            this.icon = icon;
+            Icon = icon;
             IsSpecial = isSpecial;
         }
 
@@ -29,6 +29,6 @@ namespace Game
         /// <param name="player"></param>
         public virtual void Effect(Player player){}
 
-        public override string ToString() => icon;
+        public override string ToString() => Icon;
     }
 }

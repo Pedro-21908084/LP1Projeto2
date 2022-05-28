@@ -41,6 +41,8 @@ namespace Game
 
         public void ShowWinMessage(int playerNumber);
 
+        public void ShowPlayerNumber(int playerNumber);
+
         public void ErrorMessage();
 
     }
