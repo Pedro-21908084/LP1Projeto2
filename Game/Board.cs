@@ -6,12 +6,13 @@ namespace Game
     public class Board
     {
         public Tile[,] Map {get;private set;}
-        private Player [] players;
+        public Player [] players;
 
         public Board( Player player1, Player player2)
         {
-            GenerateMap();
             players = new Player[]{player1, player2};
+            
+            GenerateMap();
         }
 
         private void GenerateMap()
@@ -51,6 +52,12 @@ namespace Game
 
                     playerPos += direction[1];
 
+                    if(playerPos > 25)
+                    {
+                        int dif = playerPos - 25;
+                        playerPos = 25 - dif;
+                    }
+
                     int[] playerArr = BoardToArray(playerPos);
 
                     player.X = playerArr[0];
@@ -62,6 +69,7 @@ namespace Game
                 player.Y = (player.Y > 4)? 4: (player.Y < 0)? 0: player.Y;
 
                 //check overlap
+                CheckForPlayerOverlap(player);
 
                 Map[player.X, player.Y].Effect(player);
             }
@@ -70,7 +78,7 @@ namespace Game
         private void CheckForPlayerOverlap(Player player)
         {
             int enemy = (players[0].Icon == player.Icon)? 1 : 0 ;
-
+            //Console.WriteLine(player.Icon + ":" + players[(enemy == 0)?1:0].Icon);
             if(players[(enemy == 0)?1:0].Icon == player.Icon && 
                 player.X == players[enemy].X && player.Y == players[enemy].Y &&
                 !(player.X == 4 && player.Y == 0))

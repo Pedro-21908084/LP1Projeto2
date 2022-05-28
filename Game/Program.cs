@@ -21,7 +21,7 @@ namespace Game
             Console.WriteLine($"You rolled a :{dice}");
             view.ShowBoard(model, player1,player2);
             dice = model.ThrowDice();
-            model.Move(new int[]{0, dice}, player2);
+            model.Move(new int[]{0, dice}, player1);
             Console.WriteLine($"You rolled a :{dice}");
             view.ShowBoard(model, player1,player2);
 
@@ -30,7 +30,7 @@ namespace Game
             Console.WriteLine($"You rolled a :{dice}");
             view.ShowBoard(model, player1,player2);
             dice = model.ThrowDice();
-            model.Move(new int[]{0, dice}, player2);
+            model.Move(new int[]{0, dice}, player1);
             Console.WriteLine($"You rolled a :{dice}");
             view.ShowBoard(model, player1,player2);
 
@@ -39,7 +39,7 @@ namespace Game
             Console.WriteLine($"You rolled a :{dice}");
             view.ShowBoard(model, player1,player2);
             dice = model.ThrowDice();
-            model.Move(new int[]{0, dice}, player2);
+            model.Move(new int[]{0, dice}, player1);
             Console.WriteLine($"You rolled a :{dice}");
             view.ShowBoard(model, player1,player2);
 
@@ -48,7 +48,7 @@ namespace Game
             Console.WriteLine($"You rolled a :{dice}");
             view.ShowBoard(model, player1,player2);
             dice = model.ThrowDice();
-            model.Move(new int[]{0, dice}, player2);
+            model.Move(new int[]{0, dice}, player1);
             Console.WriteLine($"You rolled a :{dice}");
             view.ShowBoard(model, player1,player2);
         }
