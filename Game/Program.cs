@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Game
 {
@@ -6,6 +7,7 @@ namespace Game
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
             TheView view = new TheView();
 
             Player player1 = new Player("🧑");
