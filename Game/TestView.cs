@@ -4,10 +4,13 @@ namespace Game
     {
         public string PlayerInput { get; set; }
 
-        public void ShowBoard()
+        public void ShowBoard(Board board, Player player1, Player player2)
         {
             
         }
+
+        public void ShowInGameDisplay(Board board, Player player1, Player player2)
+        {}
 
         public void ShowBonusDiceInfo()
         {
