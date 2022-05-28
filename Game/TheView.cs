@@ -41,6 +41,7 @@ namespace Game
             Console.WriteLine($"7-----------------------------------------Goes Back to Main Menu");
             Console.WriteLine($"8------------------------------------------------------Save Game");
             Console.WriteLine($"0------------------------------------------------------Exit Game");
+            Console.WriteLine("");
             Console.WriteLine("-----------------------------------------------------------------");
             WaitingForInput(PlayerInput);
         }
@@ -134,15 +135,29 @@ namespace Game
                 for (int j = 0; j < 5; j++)
                 {
                     Console.Write("|");
-                    if(board.Map[i,j].ToString().Length == 1)
+                    if(i== 4 && j == 0 && player1.X == 4 && player1.Y == 0 && 
+                    player2.X == 4 && player2.Y == 0)
                     {
-                        Console.Write(" ");
+                        Console.Write(" 👫 |");
                     }
-                    else if(i == 4 && j == 0)
+                    else if(player1.X == i && player1.Y == j)
+                    {
+                        Console.Write($"{player1}");
+                    }
+                    else if(player2.X == i && player2.Y == j)
+                    {
+                        Console.Write($"{player2}");
+                    }
+                    else 
                     {
                         
+                        if(board.Map[i,j].ToString().Length == 1)
+                        {
+                            Console.Write(" ");
+                        }
+                        Console.Write($" {board.Map[i,j]} |");
                     }
-                    Console.Write($" {board.Map[i,j]} |");
+                    
                 }
                 Console.WriteLine("\n|____||____||____||____||____|");
             }

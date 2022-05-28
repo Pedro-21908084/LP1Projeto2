@@ -11,8 +11,8 @@ namespace Game
         public Player(string icon)
         {
             Icon = icon;
-            X = 0;
-            Y = 4;
+            X = 4;
+            Y = 0;
             CheatDice = false;
             ExtraDice = false;
         }
