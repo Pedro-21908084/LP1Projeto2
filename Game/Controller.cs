@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace 
+namespace Game
 {
     public class Controller
     {
         private IView view;
         private Board board;
-
+/*
                 //Controller
         /// <summary>
         /// Starts the game loop going through turns based on the number of 
@@ -156,6 +156,6 @@ namespace
             }
 
 
-        }
+        }*/
     }
 }

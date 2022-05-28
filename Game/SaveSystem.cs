@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace 
+namespace Game
 {
     public class SaveSystem
     {
-        public void Save(Board board){
+        /*public void Save(Board board){
             string map;
             for (int i = 0; i < 5 ;i++){
                 for (int j = 0; i < 5; i++){
@@ -25,6 +25,6 @@ namespace
                 }
             } 
 
-        }
+        }*/
     }
 }
