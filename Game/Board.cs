@@ -67,6 +67,47 @@ namespace Game
             }
         }
 
+        private void CheckForPlayerOverlap(Player player)
+        {
+            int enemy = (players[0].Icon == player.Icon)? 1 : 0 ;
+
+            if(players[(enemy == 0)?1:0].Icon == player.Icon && 
+                player.X == players[enemy].X && player.Y == players[enemy].Y &&
+                !(player.X == 4 && player.Y == 0))
+            {
+                if(CheckStackOverFlowPlayers(player))
+                {
+                    int newPlayerPos = ArrayToBoard(player.X, player.Y);
+
+                    newPlayerPos --;
+
+                    int[] playerArr = BoardToArray(newPlayerPos);
+
+                    players[enemy].X = playerArr[0];
+                    players[enemy].Y = playerArr[1];
+                }
+                else
+                    Move( new int[]{0,-1}, players[enemy]);
+                
+            }
+        }
+
+        private bool CheckStackOverFlowPlayers(Player player)
+        {
+            bool result = false;
+
+            Player testPlayer = new Player("T");
+            testPlayer.X = player.X;
+            testPlayer.Y = player.Y;
+
+            Move( new int[]{0,-1}, testPlayer);
+
+            if(testPlayer.X == player.X && testPlayer.Y == player.Y)
+                result = true;
+
+            return result;
+        }
+
         private int ArrayToBoard(int x, int y) =>
         (x % 2 == 0) ? PosLine(x + 1) + y + 1 : PosLine(x) - y;
 
