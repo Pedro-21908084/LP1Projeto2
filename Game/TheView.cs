@@ -17,10 +17,10 @@ namespace Game
             Console.WriteLine("            |Welcome To Snakes and Ladders: Command Console Edition|");
             Console.WriteLine(" ___________|______________________________________________________|___________");
             Console.WriteLine("| 1----------------------------------------------------------------Runs the game|");
-            Console.WriteLine("| 2--------------------------------------------------Shows all Possible Commands|");
-            Console.WriteLine("| 3--------------------------------------------------------------Loads Save Game|");
-            Console.WriteLine("| 4-------------------------------------------------------------------Exits Game|");
+            Console.WriteLine("| 2--------------------------------------------------------------Loads Save Game|");
+            Console.WriteLine("| 0-------------------------------------------------------------------Exits Game|");
             Console.WriteLine("|_______________________________________________________________________________|");
+
 
         }
 
@@ -42,8 +42,6 @@ namespace Game
             Console.WriteLine($"8------------------------------------------------------Save Game");
             Console.WriteLine($"0------------------------------------------------------Exit Game");
             Console.WriteLine("");
-            Console.WriteLine("-----------------------------------------------------------------");
-            WaitingForInput(PlayerInput);
         }
         
         public void ShowInGameHelp()
@@ -57,8 +55,6 @@ namespace Game
             Console.WriteLine($"7-----------------------------------------Goes Back to Main Menu");
             Console.WriteLine($"8------------------------------------------------------Save Game");
             Console.WriteLine($"0------------------------------------------------------Exit Game");
-            Console.WriteLine("-----------------------------------------------------------------");
-            WaitingForInput(PlayerInput);
         }
 
         public void ShowBonusDiceInfo()
@@ -72,7 +68,6 @@ namespace Game
             "a number of tiles according to that selected number");
             Console.WriteLine("---------------------------------" +
             "-----------------------------------------------");
-            WaitingForInput(PlayerInput);
         }
 
         public void ShowTileInfo()
@@ -83,47 +78,45 @@ namespace Game
             "-----------------------------------------------");
             Console.WriteLine($"Snake Tiles make the player go " + 
             "vertically down 1 tile. They are represented by " +
-            " this symbol: 🐍 ");
+            " this symbol:🐍");
             Console.WriteLine("---------------------------------" +
             "-----------------------------------------------");
             Console.WriteLine($"Ladder Tiles make the player go " +
             "vertically up 1 tile. They are represented by " +
-            "numbers by this symbol:冃 ");
+            "numbers by this symbol:冃");
             Console.WriteLine("---------------------------------" +
             "-----------------------------------------------");
             Console.WriteLine($"Cobra Tiles make the player go " +
             "back to the first spot of the board. They are " +
-            "represented by this symbol: 🟥 ");
+            "represented by this symbol:🟥");
             Console.WriteLine("---------------------------------" +
             "-----------------------------------------------");
             Console.WriteLine($"Boost Tiles make the player go " +
             "forward 2 tiles. They are represented by this " +
-            "symbol: 🚀 ");
+            "symbol:  🚀 ");
             Console.WriteLine("---------------------------------" +
             "-----------------------------------------------");
             Console.WriteLine($"U-turn Tiles make the player go " +
-            "back 2 tiles. They are represented by this symbol: ↺ ");
+            "back 2 tiles. They are represented by this symbol:  ↺ ");
             Console.WriteLine("---------------------------------" +
             "-----------------------------------------------");
             Console.WriteLine($"Extra Die Tiles grant the player" +
             " an extra dice(If the player already has 1 " + 
             "extra dice no more will be granted). They are " +
-            "represented by this symbol: ➕");
+            "represented by this symbol:➕");
             Console.WriteLine("---------------------------------" +
             "-----------------------------------------------");
             Console.WriteLine($"Cheat Die Tiles grant the player" +
             " the option to choose a number and move a number" +
             " of tiles using that number. They are " + 
-            "represented by this symbol: 🎲");
-            Console.WriteLine("-----------------------------------------------------------------");
-            WaitingForInput(PlayerInput);
+            "represented by this symbol:🎲");
         }
 
-        public string WaitingForInput(string playerInput)
+        public void WaitingForInput()
         {
+            Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine("What do you want to do?");
-            playerInput = Console.ReadLine();
-            return playerInput;
+            PlayerInput = Console.ReadLine();
         }
 
         public void ShowBoard(Board board, Player player1, Player player2)
@@ -142,16 +135,16 @@ namespace Game
                     }
                     else if(player1.X == i && player1.Y == j)
                     {
-                        Console.Write($"{player1}");
+                        Console.Write($" {player1} |");
                     }
                     else if(player2.X == i && player2.Y == j)
                     {
-                        Console.Write($"{player2}");
+                        Console.Write($" {player2} |");
                     }
                     else 
                     {
                         
-                        if(board.Map[i,j].ToString().Length == 1)
+                        if(board.Map[i,j].ToString().Length == 1 && ( board.Map[i,j].Icon == "↺" || !board.Map[i,j].IsSpecial))
                         {
                             Console.Write(" ");
                         }
@@ -163,9 +156,57 @@ namespace Game
             }
         }
 
-        public void ShowPlayerMoves()
+        public void ShowPlayerMoves(Board board)
         {
+            Console.WriteLine(board.Turn);
+        }
 
+        public void ShowDiceRoll(int diceRollNumber)
+        {
+            Console.WriteLine($"The dice rolled a : {diceRollNumber}");
+        }
+
+        public void ShowExtraDiceResult(int sumOfDicesRoll)
+        {
+            Console.WriteLine($"The sum of the 2 Dice was: {sumOfDicesRoll}");
+        }
+
+        public void ShowExtraDiceError()
+        {
+            Console.WriteLine($"You don't have an Extra Dice to use");    
+        }
+
+        public void AskCheatDiceQuestion()
+        {
+            Console.WriteLine("Do you want to use your Cheat Dice to roll a " +
+            "number of your choosing?(Yes/No)");
+        }
+
+        public int AskCheatDiceRoll()
+        {
+            Console.WriteLine("What Number you want to roll?(1-6)");
+            int numberChosen = int.Parse(Console.ReadLine());
+            return numberChosen;
+        }
+
+        public void ShowOutOfBoundsMessage(int numberOfTilesOver25)
+        {
+            Console.WriteLine($"You went {numberOfTilesOver25} over the finish line");
+        }
+
+        public void ShowWinMessage(int playerNumber)
+        {
+            Console.WriteLine($"Player{playerNumber} won the match");
+        }
+        
+        public void ShowPlayerNumber(int playerNumber)
+        {
+            Console.WriteLine($"It's player {playerNumber}");
+        }
+
+        public void ErrorMessage()
+        {
+            Console.WriteLine("Invalid Input");
         }
 
     }
