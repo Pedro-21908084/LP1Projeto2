@@ -3,14 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Game
+namespace 
 {
     public class Controller
     {
-        private IView view;
+        private OfficialView view;
         private Board board;
-/*
-                //Controller
+
+        private SaveSystem saveSystem;
+
+        private bool isInGame;
+
+        public Controller(OfficialView theView, Board theBoard, SaveSystem theSaveSystem)
+        {
+            view = theView;
+            board = theBoard;
+            saveSystem =theSaveSystem;
+        }
+
+        public void RunGame(OfficialView theView)
+        {
+            view.ShowMainMenu();
+            view.WaitingForInput();
+            CheckPlayerInput(view.PlayerInput,-1, isInGame, board);
+        }
+                
         /// <summary>
         /// Starts the game loop going through turns based on the number of 
         /// players in the array
@@ -24,18 +41,27 @@ namespace Game
             //The turn System from 1 to max length of player array
             for (int i = 0; i < players.Length; i++)
             {
+                view.ShowBoard(board);
+                view.ShowPlayerMoves(board);
+                board.ResetTurnMsg();
+                int winnerResult = board.CheckWinner();
+                if(winnerResult != 0)
+                {
+                    view.ShowWinMessage(winnerResult);
+                    view.ShowMainMenu();
+                    isInGame = false;
+                    view.WaitingForInput();
+                    CheckPlayerInput(view.PlayerInput,winnerResult,isInGame,board);
+                    break;
+                }
 
-                int playerTextNumber = i + 1;
-                grid.ShowMap(players);
-                //Shows visually the board map from new instance created above
-                ShowInGameDisplay();
-
+                view.ShowPlayerUI(board, i + 1);
                 //Waits for Player input
                 //string playerGameInput = Console.ReadLine();
-                WaitingForInput();
+                view.WaitingForInput();
                 //Checks if the player input is equal to one of the commands 
                 //specified in the function and plays out the proper action
-                CheckPlayerInput(playerGameInput, i, isInTheGame);
+                CheckPlayerInput(view.PlayerInput,i,isInGame,board);
                 //When the turn number is 1 it resets back to -1 for the 
                 //repetition of the loop
                 if (i == 1)
@@ -44,7 +70,6 @@ namespace Game
 
         }
 
-        //Controller
         /// <summary>
         /// Waits and Checks what the player inputs while in the game or in 
         /// the main menu and gives/plays out the proper response or action 
@@ -64,68 +89,75 @@ namespace Game
                 switch (playerInput)
                 {
 
-                    case "New Game":
-                    //TODO New game case in view
-                        //Console.WriteLine("New Game Generated...");
-                        grid = new Map();
-                        players[0] = new Player(4, 0, false, false);
-                        players[1] = new Player(4, 0, false, false);
+                    case "1":
+                        Player player1 = new Player("🧑");
+                        Player player2 = new Player("👩");
+                        board = new Board(player1,player2);
+                        //Delete Save File
                         TurnSystemLoop();
                         break;
 
-                    case "Help":
-                        ShowInGameHelp();
-                        WaitingForInput();
+                    case "2":
+                        view.ShowInGameHelp();
+                        view.WaitingForInput();
+                        CheckPlayerInput(view.PlayerInput, playerNumber, isInGame, theBoard);
                         break;
 
-                    case "Throw Dice":
-                    //TODO Throw dice /Cheat dice case in view
-                        int diceNumberGiven = Board.ThrowDice();
-                        //Console.WriteLine($"Dice Rolled: {diceNumberGiven}");
-                        if (players[playerNumber].hasCheatDice == true)
-                            CheatDiceQuestion(playerNumber, diceNumberGiven);
-                        else
-                            players[playerNumber] = NextMove
-                                (playerNumber, diceNumberGiven);
-                        break;
-
-                    case "Use Extra Dice":
-                    //TODO Extra dice case in view
-                        if (players[playerNumber].hasExtraDice == true)
+                    case "3":
+                        int diceNumberGiven = theBoard.ThrowDice();
+                        view.ShowDiceRoll(diceNumberGiven);
+                        if (theBoard.players[playerNumber].CheatDice == true)
                         {
-                            int extraDiceNumber = ThrowDice() + ThrowDice();
-                            //Console.WriteLine($"The sum of the 2 Dice was: {extraDiceNumber}");
-                            players[playerNumber] = Board.Move(new int[] {0, extraDiceNumber}, Player player);
-                            players[playerNumber].hasExtraDice = false;
+                            CheatDiceQuestion(theBoard,playerNumber,diceNumberGiven);
+                        }
+                        else
+                            theBoard.Move(new int[]{0, diceNumberGiven},theBoard.players[playerNumber]);
+                        break;
+
+                    case "4":
+                        if (theBoard.players[playerNumber].ExtraDice == true)
+                        {
+                            int extraDiceNumber = theBoard.ThrowDice() + theBoard.ThrowDice();
+                            view.ShowExtraDiceResult(extraDiceNumber);
+                            theBoard.Move(new int[]{0, extraDiceNumber},theBoard.players[playerNumber]);
+                            theBoard.players[playerNumber].ExtraDice = false;
                         }
                         else
                         {
-                            Console.WriteLine("No Extra Dice to use");
-                            WaitingForInput();
+                            view.ShowExtraDiceError();
+                            view.WaitingForInput();
+                            CheckPlayerInput(view.PlayerInput,playerNumber,isInGame,theBoard);
                         }
                         break;
 
-                    case "Bonus Dice Info":
-                        ShowBonusDiceInfo();
-                        WaitingForInput();
+                    case "5":
+                        view.ShowBonusDiceInfo();
+                        view.WaitingForInput();
+                        CheckPlayerInput(view.PlayerInput,playerNumber,isInGame,theBoard);
                         break;
 
-                    case "Tile Info":
-                        ShowTileInfo();
-                        WaitingForInput();
+                    case "6":
+                        view.ShowTileInfo();
+                        view.WaitingForInput();
+                        CheckPlayerInput(view.PlayerInput,playerNumber,isInGame,theBoard);
                         break;
 
-                    case "Back":
-                        ShowMainMenu();
+                    case "7":
+                        saveSystem.Save(board);
+                        isInGame = false;
+                        view.ShowMainMenu();
+                        view.WaitingForInput();
+                        CheckPlayerInput(view.PlayerInput,playerNumber,isInGame,theBoard);
                         break;
 
-                    case "Quit":
+                    case "0":
                         Environment.Exit(0);
                         break;
 
                     default:
-                        Console.WriteLine("Invalid Input");
-                        WaitingForInput();
+                        view.ErrorMessage();
+                        view.WaitingForInput();
+                        CheckPlayerInput(view.PlayerInput,playerNumber,isInGame,theBoard);
                         break;
                 }
             }
@@ -134,28 +166,55 @@ namespace Game
             {
                 switch (playerInput)
                 {
-                    case "Start Game":
+                    case "1":
                         TurnSystemLoop();
                         break;
 
-                    case "Help":
-                        ShowInGameHelp();
+                    case "2":
+                        saveSystem.Load(board);
                         WaitingMenuInput();
                         break;
 
-                    case "Quit":
+                    case "0":
                         Environment.Exit(0);
                         break;
 
                     default:
-                    //TODO case for invalid input
-                        //Console.WriteLine("Invalid Input");
-                        WaitingMenuInput();
+                        view.ErrorMessage();
+                        view.WaitingForInput();
+                        CheckPlayerInput(view.PlayerInput,-1, isInGame,board);
                         break;
                 }
             }
 
 
-        }*/
+        }
+        
+        private void CheatDiceQuestion(Board theBoard, int playerNumber, int diceRollNumber)
+        {
+            string theAnswer = view.AskCheatDiceQuestion();
+            if(theAnswer == "1")
+            {
+                int rollAnswer = view.AskCheatDiceRoll();
+                if (rollAnswer >= 1 && rollAnswer <= 6)
+                {
+                 theBoard.Move(new int[]{0, rollAnswer},theBoard.players[playerNumber]);
+                 theBoard.players[playerNumber].CheatDice = false;
+                }
+                else
+                {
+                    CheatDiceQuestion(board,playerNumber,diceRollNumber);
+                }
+            }
+            else if(theAnswer == "2")
+            {
+                theBoard.Move(new int[]{0, diceRollNumber},theBoard.players[playerNumber]);
+            }
+            else
+            {
+                view.ErrorMessage();
+                CheatDiceQuestion(board,playerNumber,diceRollNumber);
+            }
+        }
     }
 }
