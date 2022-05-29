@@ -28,7 +28,6 @@ namespace Game
         {
             Console.WriteLine("Game Begun");
             Console.WriteLine("--------------------------------------------------------------------");
-            ShowBoard(board);
             Console.WriteLine("--------------------------------------------------------------------");
             Console.WriteLine("These are the possible inputs and what they do:");
             Console.WriteLine(" ");
