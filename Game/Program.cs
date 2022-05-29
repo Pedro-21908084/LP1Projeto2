@@ -12,6 +12,9 @@ namespace Game
             Player player1 = new Player("🧑");
             Player player2 = new Player("👩");
             Board model = new Board(player1,player2);
+            SaveSystem saveSystem = new SaveSystem("p");
+            Controller controller = new Controller(view, model, saveSystem);
+            controller.RunGame(view);
 
             
         }

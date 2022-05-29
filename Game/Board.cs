@@ -170,7 +170,7 @@ namespace Game
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        private int ArrayToBoard(int x, int y) =>
+        public int ArrayToBoard(int x, int y) =>
         (x % 2 == 0) ? PosLine(x + 1) + y + 1 : PosLine(x) - y;
 
         /// <summary>

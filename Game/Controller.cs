@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace 
+namespace Game
 {
     public class Controller
     {
-        private OfficialView view;
+        private TheView view;
         private Board board;
 
         private SaveSystem saveSystem;
 
         private bool isInGame;
 
-        public Controller(OfficialView theView, Board theBoard, SaveSystem theSaveSystem)
+        public Controller(TheView theView, Board theBoard, SaveSystem theSaveSystem)
         {
             view = theView;
             board = theBoard;
             saveSystem =theSaveSystem;
         }
 
-        public void RunGame(OfficialView theView)
+        public void RunGame(TheView theView)
         {
             view.ShowMainMenu();
             view.WaitingForInput();
@@ -36,10 +36,10 @@ namespace
         {
             //Checks if is in the game to help the CheckPlayerInput method see 
             //what commands are available
-            bool isInTheGame = true;
-            ShowInGameDisplay();
+            bool isInGame = true;
+            view.ShowInGameDisplay(board);
             //The turn System from 1 to max length of player array
-            for (int i = 0; i < players.Length; i++)
+            for (int i = 0; i < board.players.Length; i++)
             {
                 view.ShowBoard(board);
                 view.ShowPlayerMoves(board);
@@ -77,7 +77,7 @@ namespace
         /// <param name="playerInput"></param>
         /// <param name="playerNumber"></param>
         /// <param name="isInGame"></param>
-        private void CheckPlayerInput(string playerInput, int playerNumber, bool isInGame)
+        private void CheckPlayerInput(string playerInput, int playerNumber, bool isInGame, Board theBoard)
         {
 
             /// <summary>
@@ -172,7 +172,7 @@ namespace
 
                     case "2":
                         saveSystem.Load(board);
-                        WaitingMenuInput();
+                        TurnSystemLoop();
                         break;
 
                     case "0":
