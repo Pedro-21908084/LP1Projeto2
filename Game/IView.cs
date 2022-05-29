@@ -13,7 +13,7 @@ namespace Game
         //Methods
         public void ShowMainMenu();
         
-        public void ShowInGameDisplay(Board board, Player player1, Player player2);
+        public void ShowInGameDisplay(Board board);
 
         public void ShowInGameHelp();
 
@@ -23,7 +23,7 @@ namespace Game
 
         public void WaitingForInput();
 
-        public void ShowBoard(Board board, Player player1, Player player2);
+        public void ShowBoard(Board board);
 
         public void ShowPlayerMoves(Board board);
 
@@ -33,7 +33,7 @@ namespace Game
 
         public void ShowExtraDiceError();
 
-        public void AskCheatDiceQuestion();
+        public string AskCheatDiceQuestion();
 
         public int AskCheatDiceRoll();
 
@@ -42,6 +42,8 @@ namespace Game
         public void ShowWinMessage(int playerNumber);
 
         public void ShowPlayerNumber(int playerNumber);
+
+        public void ShowPlayerUI(Board board, int playerNUmber);
 
         public void ErrorMessage();
 

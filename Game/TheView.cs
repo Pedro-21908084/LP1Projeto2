@@ -24,11 +24,11 @@ namespace Game
 
         }
 
-        public void ShowInGameDisplay(Board board, Player player1, Player player2)
+        public void ShowInGameDisplay(Board board)
         {
             Console.WriteLine("Game Begun");
             Console.WriteLine("--------------------------------------------------------------------");
-            ShowBoard(board, player1, player2);
+            ShowBoard(board);
             Console.WriteLine("--------------------------------------------------------------------");
             Console.WriteLine("These are the possible inputs and what they do:");
             Console.WriteLine(" ");
@@ -38,8 +38,7 @@ namespace Game
             Console.WriteLine($"4 ----------------------------Uses Extra Dice if it is available");
             Console.WriteLine($"5 ---------------------Shows What Each Bonus Dice does when used");
             Console.WriteLine($"6 -----------Shows the effect of all the types of existing tiles");
-            Console.WriteLine($"7-----------------------------------------Goes Back to Main Menu");
-            Console.WriteLine($"8------------------------------------------------------Save Game");
+            Console.WriteLine($"7-------------------------------------Save and Exit to Main Menu");
             Console.WriteLine($"0------------------------------------------------------Exit Game");
             Console.WriteLine("");
         }
@@ -52,8 +51,7 @@ namespace Game
             Console.WriteLine($"4 ----------------------------Uses Extra Dice if it is available");
             Console.WriteLine($"5 ---------------------Shows What Each Bonus Dice does when used");
             Console.WriteLine($"6 -----------Shows the effect of all the types of existing tiles");
-            Console.WriteLine($"7-----------------------------------------Goes Back to Main Menu");
-            Console.WriteLine($"8------------------------------------------------------Save Game");
+            Console.WriteLine($"7-------------------------------------Save and Exit to Main Menu");
             Console.WriteLine($"0------------------------------------------------------Exit Game");
         }
 
@@ -119,7 +117,7 @@ namespace Game
             PlayerInput = Console.ReadLine();
         }
 
-        public void ShowBoard(Board board, Player player1, Player player2)
+        public void ShowBoard(Board board)
         {
             Console.WriteLine("______________________________");
             for (int i = 0; i < 5; i++)
@@ -128,18 +126,18 @@ namespace Game
                 for (int j = 0; j < 5; j++)
                 {
                     Console.Write("|");
-                    if(i== 4 && j == 0 && player1.X == 4 && player1.Y == 0 && 
-                    player2.X == 4 && player2.Y == 0)
+                    if(i== 4 && j == 0 && board.players[0].X == 4 && board.players[0].Y == 0 && 
+                    board.players[1].X == 4 && board.players[1].Y == 0)
                     {
                         Console.Write(" 👫 |");
                     }
-                    else if(player1.X == i && player1.Y == j)
+                    else if(board.players[0].X == i && board.players[0].Y == j)
                     {
-                        Console.Write($" {player1} |");
+                        Console.Write($" {board.players[0]} |");
                     }
-                    else if(player2.X == i && player2.Y == j)
+                    else if(board.players[1].X == i && board.players[1].Y == j)
                     {
-                        Console.Write($" {player2} |");
+                        Console.Write($" {board.players[1]} |");
                     }
                     else 
                     {
@@ -176,10 +174,12 @@ namespace Game
             Console.WriteLine($"You don't have an Extra Dice to use");    
         }
 
-        public void AskCheatDiceQuestion()
+        public string AskCheatDiceQuestion()
         {
             Console.WriteLine("Do you want to use your Cheat Dice to roll a " +
-            "number of your choosing?(Yes/No)");
+            "number of your choosing?(1 - Yes/2 - No)");
+            string answer = Console.ReadLine();
+            return answer;
         }
 
         public int AskCheatDiceRoll()
@@ -204,10 +204,18 @@ namespace Game
             Console.WriteLine($"It's player {playerNumber}");
         }
 
+        public void ShowPlayerUI(Board board, int playerNumber)
+        {
+            Console.WriteLine($"It's Player {playerNumber} turn");
+            Console.WriteLine($"Do you have Extra Dice? {board.players[playerNumber - 1].ExtraDice}");
+            Console.WriteLine($"Do you have Extra Dice? {board.players[playerNumber - 1].CheatDice}");   
+        }
+
         public void ErrorMessage()
         {
             Console.WriteLine("Invalid Input");
         }
+        
 
     }
 }
