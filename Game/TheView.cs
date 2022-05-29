@@ -7,10 +7,15 @@ namespace Game
 {
     public class TheView:IView
     {
-        //Variables/Properties
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public string PlayerInput {get; set;}
 
-        //Methods
+        /// <summary>
+        /// 
+        /// </summary>
         public void ShowMainMenu()
         {
             Console.WriteLine("             ______________________________________________________");
@@ -23,7 +28,10 @@ namespace Game
 
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="board"></param>
         public void ShowInGameDisplay(Board board)
         {
             Console.WriteLine("Game Begun");
@@ -41,7 +49,9 @@ namespace Game
             Console.WriteLine($"0------------------------------------------------------Exit Game");
             Console.WriteLine("");
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public void ShowInGameHelp()
         {
             Console.WriteLine($"1 -----------------------------------------------Starts New Game");
@@ -53,7 +63,9 @@ namespace Game
             Console.WriteLine($"7-------------------------------------Save and Exit to Main Menu");
             Console.WriteLine($"0------------------------------------------------------Exit Game");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void ShowBonusDiceInfo()
         {
             Console.WriteLine("Using an Extra dice will roll 2 " + 
@@ -66,7 +78,9 @@ namespace Game
             Console.WriteLine("---------------------------------" +
             "-----------------------------------------------");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void ShowTileInfo()
         {
             Console.WriteLine($"Normal Tiles do not affect the " + 
@@ -108,14 +122,19 @@ namespace Game
             " of tiles using that number. They are " + 
             "represented by this symbol:🎲");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void WaitingForInput()
         {
             Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine("What do you want to do?");
             PlayerInput = Console.ReadLine();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="board"></param>
         public void ShowBoard(Board board)
         {
             Console.WriteLine("______________________________");
@@ -152,27 +171,41 @@ namespace Game
                 Console.WriteLine("\n|____||____||____||____||____|");
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="board"></param>
         public void ShowPlayerMoves(Board board)
         {
             Console.WriteLine(board.Turn);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="diceRollNumber"></param>
         public void ShowDiceRoll(int diceRollNumber)
         {
             Console.WriteLine($"The dice rolled a : {diceRollNumber}");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sumOfDicesRoll"></param>
         public void ShowExtraDiceResult(int sumOfDicesRoll)
         {
             Console.WriteLine($"The sum of the 2 Dice was: {sumOfDicesRoll}");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void ShowExtraDiceError()
         {
             Console.WriteLine($"You don't have an Extra Dice to use");    
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string AskCheatDiceQuestion()
         {
             Console.WriteLine("Do you want to use your Cheat Dice to roll a " +
@@ -180,36 +213,54 @@ namespace Game
             string answer = Console.ReadLine();
             return answer;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int AskCheatDiceRoll()
         {
             Console.WriteLine("What Number you want to roll?(1-6)");
             int numberChosen = int.Parse(Console.ReadLine());
             return numberChosen;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="numberOfTilesOver25"></param>
         public void ShowOutOfBoundsMessage(int numberOfTilesOver25)
         {
             Console.WriteLine($"You went {numberOfTilesOver25} over the finish line");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerNumber"></param>
         public void ShowWinMessage(int playerNumber)
         {
             Console.WriteLine($"Player{playerNumber} won the match");
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerNumber"></param>
         public void ShowPlayerNumber(int playerNumber)
         {
             Console.WriteLine($"It's player {playerNumber}");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="playerNumber"></param>
         public void ShowPlayerUI(Board board, int playerNumber)
         {
             Console.WriteLine($"It's Player {playerNumber} turn");
             Console.WriteLine($"Do you have Extra Dice? {board.players[playerNumber - 1].ExtraDice}");
             Console.WriteLine($"Do you have Extra Dice? {board.players[playerNumber - 1].CheatDice}");   
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void ErrorMessage()
         {
             Console.WriteLine("Invalid Input");
