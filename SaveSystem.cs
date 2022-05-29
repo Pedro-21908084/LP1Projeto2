@@ -12,6 +12,7 @@ namespace
             for (int i = 0; i < 5 ;i++){
                 for (int j = 0; i < 5; i++){
                     map+= Board.map[i,j]
+                    map+= "-";
                 }
             } 
 
