@@ -42,8 +42,15 @@ namespace Game
             ResetTurnMsg();
         }
 
+        /// <summary>
+        /// Resets the turn message string
+        /// </summary>
         public void ResetTurnMsg() => Turn = "";
 
+        /// <summary>
+        /// Adds a message to turn message string
+        /// </summary>
+        /// <param name="s"></param>
         public void AddToTurn(string s)=> Turn+= s;
 
         /// <summary>
@@ -285,6 +292,13 @@ namespace Game
             return position;
         }
 
+        /// <summary>
+        /// Checks if putting a tile ate pos (x, y) will create stack overflow
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         private bool CheckForStackOverFlow(Tile tile, int x, int y)
         {
             bool result = false;
@@ -302,6 +316,12 @@ namespace Game
             return result;
         }
 
+        /// <summary>
+        /// Checks if any player has won the game(is on tile 25)
+        /// </summary>
+        /// <returns>0 when no one has won
+        /// 1 when the first player has won
+        /// 2 when the second player has won</returns>
         public int CheckWinner()
         {
             int winner = 0;
