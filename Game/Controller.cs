@@ -19,6 +19,7 @@ namespace Game
             view = theView;
             board = theBoard;
             saveSystem =theSaveSystem;
+            isInGame = false;
         }
         /// <summary>
         /// Runs The Game
