@@ -301,5 +301,17 @@ namespace Game
 
             return result;
         }
+
+        public int CheckWinner()
+        {
+            int winner = 0;
+
+            if(players[0].X == 0 && players[0].Y == 4)
+                winner = 1;
+            else if(players[1].X == 0 && players[1].Y == 4)
+                winner = 2;
+
+            return winner;
+        }
     }
 }
