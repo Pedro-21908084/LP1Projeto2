@@ -8,6 +8,12 @@ namespace Game
         public Tile[,] Map {get;private set;}
         public Player [] players;
         public string Turn{get; private set;}
+
+        /// <summary>
+        /// Constructor for class Board
+        /// </summary>
+        /// <param name="player1"></param>
+        /// <param name="player2"></param>
         public Board( Player player1, Player player2)
         {
             players = new Player[]{player1, player2};

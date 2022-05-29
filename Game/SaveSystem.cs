@@ -11,17 +11,27 @@ namespace Game
     {
         private string path;
 
-
+        /// <summary>
+        /// Constructor for class SaveSystem
+        /// </summary>
+        /// <param name="name">Name of the save file</param>
         public SaveSystem(string name)
         {
             path = name + ".txt";
         }
 
+        /// <summary>
+        /// Deletes the current save file
+        /// </summary>
         public void DeleteSaveFile()
         {
             File.Delete(path);
         }
 
+        /// <summary>
+        /// Saves contents of a given board (Map[,] and players[]) to a file 
+        /// </summary>
+        /// <param name="board"></param>
         public void Save(Board board){
             string map = "";
             string player1 = "";
@@ -38,15 +48,21 @@ namespace Game
             }
 
             save.Add(map);
-            player1 = ConvertPlayerToString(board.players[0]);
+            player1 = Player2String(board.players[0]);
             save.Add(player1);
-            player2 = ConvertPlayerToString(board.players[1]);
+            player2 = Player2String(board.players[1]);
             save.Add(player2);
 
             File.WriteAllLines(path, save);
         }
 
-        private string ConvertPlayerToString(Player player)
+        /// <summary>
+        /// Converts a given player to a string, separating its variables with
+        /// "/"
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns>Returns a string with the contents of player</returns>
+        private string Player2String(Player player)
         {
             string playerString = "";
 
@@ -63,6 +79,11 @@ namespace Game
             return playerString;
         }
 
+        /// <summary>
+        /// Tries to load a file to a given board
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns>Returns true if it could load, and false otherwise</returns>
         public bool Load(Board board)
         {
             if(File.Exists(path))
@@ -89,6 +110,12 @@ namespace Game
 
         }
 
+        /// <summary>
+        /// Converts a given array of strings to a variable player
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns>Returns a player with the variables values passed in the 
+        /// strings</returns>
         private Player String2Player(string[] s)
         {
             Player player = new Player(s[4]);
@@ -101,6 +128,13 @@ namespace Game
             return player;
         }
 
+        /// <summary>
+        /// Converts a given string to a variable Tile
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="board"></param>
+        /// <param name="index"></param>
+        /// <returns>Returns a variable Tile stored in the string s</returns>
         private Tile String2Tile(string s, Board board, int index)
         {
             Tile tile;
