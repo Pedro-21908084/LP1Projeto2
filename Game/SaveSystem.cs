@@ -15,7 +15,7 @@ namespace Game
         {
             path = name + ".txt";
         }
-        
+
         public void DeleteSaveFile()
         {
             File.Delete(path);
