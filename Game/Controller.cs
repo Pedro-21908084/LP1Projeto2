@@ -20,7 +20,10 @@ namespace Game
             board = theBoard;
             saveSystem =theSaveSystem;
         }
-
+        /// <summary>
+        /// Runs The Game
+        /// </summary>
+        /// <param name="theView"></param>
         public void RunGame(TheView theView)
         {
             view.ShowMainMenu();
@@ -57,7 +60,6 @@ namespace Game
 
                 view.ShowPlayerUI(board, i + 1);
                 //Waits for Player input
-                //string playerGameInput = Console.ReadLine();
                 view.WaitingForInput();
                 //Checks if the player input is equal to one of the commands 
                 //specified in the function and plays out the proper action
@@ -79,11 +81,6 @@ namespace Game
         /// <param name="isInGame"></param>
         private void CheckPlayerInput(string playerInput, int playerNumber, bool isInGame, Board theBoard)
         {
-
-            /// <summary>
-            /// Waits for the player input and checks again what it was
-            /// </summary>
-            //If is inside the TurnSystemLoop Checks these commands
             if (isInGame == true)
             {
                 switch (playerInput)
@@ -93,7 +90,7 @@ namespace Game
                         Player player1 = new Player("🧑");
                         Player player2 = new Player("👩");
                         board = new Board(player1,player2);
-                        //Delete Save File
+                        saveSystem.DeleteSaveFile();
                         TurnSystemLoop();
                         break;
 
@@ -189,7 +186,12 @@ namespace Game
 
 
         }
-        
+        /// <summary>
+        /// Question for cheat dice case with options included
+        /// </summary>
+        /// <param name="theBoard"></param>
+        /// <param name="playerNumber"></param>
+        /// <param name="diceRollNumber"></param>
         private void CheatDiceQuestion(Board theBoard, int playerNumber, int diceRollNumber)
         {
             string theAnswer = view.AskCheatDiceQuestion();
