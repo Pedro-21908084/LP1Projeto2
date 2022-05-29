@@ -38,7 +38,13 @@ namespace Game
             PlaceTile(new Ladders(this), 2, 4, 1, 4);
             PlaceTile(new Snake(this), 2, 4, 0, 3);
             PlaceTile(new UTurn(this), 0, 2, 0, 3);
+
+            ResetTurnMsg();
         }
+
+        public void ResetTurnMsg() => Turn = "";
+
+        public void AddToTurn(string s)=> Turn+= s;
 
         /// <summary>
         /// Moves a player int the right direction.
@@ -78,6 +84,24 @@ namespace Game
                 player.X = (player.X > 4)? 4: (player.X < 0)? 0: player.X;
                 player.Y = (player.Y > 4)? 4: (player.Y < 0)? 0: player.Y;
 
+                int playerNum = (player.Icon == players[0].Icon)? 0 : 
+                (player.Icon == players[1].Icon)? 1 : -1;
+
+                if(playerNum != -1)
+                {
+                    if(Map[player.X, player.Y].IsSpecial)
+                    {
+                        Turn += $"\nPlayer {playerNum+1} moved to a special " + 
+                        $"tile {Map[player.X, player.Y]} in " + 
+                        $"{ArrayToBoard(player.X, player.Y)}, " + 
+                        "because of tile effect:";
+                    }else
+                    {
+                        Turn += $"\nPlayer {playerNum+1} moved to a normal " + 
+                        $"tile in {ArrayToBoard(player.X, player.Y)}";
+                    }
+                }
+                    
                 //check overlap
                 CheckForPlayerOverlap(player);
 
@@ -99,6 +123,9 @@ namespace Game
                 player.X == players[enemy].X && player.Y == players[enemy].Y &&
                 !(player.X == 4 && player.Y == 0))
             {
+                int playerNum = (enemy == 0)?1:0;
+                Turn += $"\nPlayer {playerNum+1} landed on top of player {enemy+1}," + 
+                " pushing him backwards";
                 if(CheckStackOverFlowPlayers(player))
                 {
                     int newPlayerPos = ArrayToBoard(player.X, player.Y);
