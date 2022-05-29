@@ -189,5 +189,32 @@ namespace
 
 
         }
+        
+        private void CheatDiceQuestion(Board theBoard, int playerNumber, int diceRollNumber)
+        {
+            string theAnswer = view.AskCheatDiceQuestion();
+            if(theAnswer == "1")
+            {
+                int rollAnswer = view.AskCheatDiceRoll();
+                if (rollAnswer >= 1 && rollAnswer <= 6)
+                {
+                 theBoard.Move(new int[]{0, rollAnswer},theBoard.players[playerNumber]);
+                 theBoard.players[playerNumber].CheatDice = false;
+                }
+                else
+                {
+                    CheatDiceQuestion(board,playerNumber,diceRollNumber);
+                }
+            }
+            else if(theAnswer == "2")
+            {
+                theBoard.Move(new int[]{0, diceRollNumber},theBoard.players[playerNumber]);
+            }
+            else
+            {
+                view.ErrorMessage();
+                CheatDiceQuestion(board,playerNumber,diceRollNumber);
+            }
+        }
     }
 }
