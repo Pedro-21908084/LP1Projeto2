@@ -11,6 +11,7 @@ namespace Game
     {
         private string path;
 
+
         public SaveSystem(string name)
         {
             path = name + ".txt";
@@ -82,11 +83,10 @@ namespace Game
 
                 board.players[0] = String2Player(player1);
                 board.players[1] = String2Player(player2);
-
                 return true;
             }
-
             return false;
+
         }
 
         private Player String2Player(string[] s)

@@ -164,12 +164,26 @@ namespace Game
                 switch (playerInput)
                 {
                     case "1":
+                        Player player1 = new Player("🧑");
+                        Player player2 = new Player("👩");
+                        board = new Board(player1,player2);
+                        saveSystem.DeleteSaveFile();
                         TurnSystemLoop();
                         break;
 
                     case "2":
-                        saveSystem.Load(board);
-                        TurnSystemLoop();
+                        bool loadFileStatus = saveSystem.Load(board);
+                        if(loadFileStatus)
+                        {
+                            TurnSystemLoop();
+                        }
+                        else
+                        {
+                            view.LoadErrorMessage();
+                            view.WaitingForInput();
+                            CheckPlayerInput(view.PlayerInput,playerNumber,isInGame,board);
+                        }
+                        
                         break;
 
                     case "0":

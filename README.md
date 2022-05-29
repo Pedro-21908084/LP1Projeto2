@@ -141,4 +141,4 @@ Contém:
 
 ## Diagrama UML
 
-![UML](C:\Users\hp\Desktop\Lusófona\LP1_V2\LP1_SnakesAndLadders_V2\LP1Projeto2\SnakesAndLadders_UMLDiagram.png)
+![UML](SnakesAndLadders_UMLDiagram.png)

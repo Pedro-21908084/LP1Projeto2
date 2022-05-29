@@ -212,7 +212,7 @@ namespace Game
         {
             Console.WriteLine($"It's Player {playerNumber} turn");
             Console.WriteLine($"Do you have Extra Dice? {board.players[playerNumber - 1].ExtraDice}");
-            Console.WriteLine($"Do you have Extra Dice? {board.players[playerNumber - 1].CheatDice}");   
+            Console.WriteLine($"Do you have Cheat Dice? {board.players[playerNumber - 1].CheatDice}");   
         }
         
         public void ErrorMessage()
