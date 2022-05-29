@@ -209,11 +209,18 @@ namespace Game
             Console.WriteLine($"Do you have Extra Dice? {board.players[playerNumber - 1].ExtraDice}");
             Console.WriteLine($"Do you have Extra Dice? {board.players[playerNumber - 1].CheatDice}");   
         }
-
+        
         public void ErrorMessage()
         {
             Console.WriteLine("Invalid Input");
         }
+        
+        public void LoadErrorMessage()
+        {
+            Console.WriteLine("File doesn't exist");
+        }
+
+        
         
 
     }

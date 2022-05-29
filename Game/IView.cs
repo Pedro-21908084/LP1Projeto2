@@ -45,10 +45,7 @@ namespace Game
 
         public void ShowPlayerUI(Board board, int playerNUmber);
 
-        public void LoadErrorMessage()
-        {
-            Console.WriteLine("File to Load does not exist");
-        }
+        public void LoadErrorMessage();
 
         public void ErrorMessage();
 
